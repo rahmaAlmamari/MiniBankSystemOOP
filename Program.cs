@@ -6,7 +6,7 @@
         public static Accounts AdminAccount = new Accounts()
         {
             UserName = "Admin",
-            //NationalID = "1234567890",
+            P_NationalID = Validation.StringValidation("national id"),
             PhoneNumber = "0123456789",
             Address = "Admin Address",
             //Password = "AdminPassword",
