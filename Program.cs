@@ -2,6 +2,17 @@
 {
     internal class Program
     {
+        //to set Admin account with default values ...
+        public static Accounts AdminAccount = new Accounts()
+        {
+            UserName = "Admin",
+            //NationalID = "1234567890",
+            PhoneNumber = "0123456789",
+            Address = "Admin Address",
+            //Password = "AdminPassword",
+            IsActive = true,
+            Type = "Admin"
+        };
         static void Main(string[] args)
         {
             //to call WelcomeMessage method ...
