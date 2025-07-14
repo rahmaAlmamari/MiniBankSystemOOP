@@ -17,7 +17,7 @@ namespace MiniBankSystemOOP
             Console.ReadLine();
         }
         //2. To check of the string contains something other than letters like number and empty space(this methos return true or false)....
-        static bool IsAlpha(string input)
+        public static bool IsAlpha(string input)
         {
             return Regex.IsMatch(input, "^[a-zA-Z]+$");
         }
