@@ -22,6 +22,15 @@ namespace MiniBankSystemOOP
         public const double MinimumBalance = 100.0;
 
         //2. Accounts class Properites ...
+        public string P_NationalID
+        {
+            get { return NationalID; }
+            set
+            {
+                //to get and validate NationalID input ...
+                NationalID = value;
+            }
+        }
 
         //3. Accounts class methods ...
 
