@@ -16,7 +16,7 @@ namespace MiniBankSystemOOP
         public string PhoneNumber;
         public string Address;
         private string Password;
-        public bool IsActive; // active = true or 1, inactive = false or 0
+        public bool IsActive = false; // active = true or 1, inactive = false or 0
         public string Type = "EndUser";// Type can be "EndUser" or "Admin" ...
         //MinimumBalance Constant to set Minimum balance allowed in the account ...
         public const double MinimumBalance = 100.0;
