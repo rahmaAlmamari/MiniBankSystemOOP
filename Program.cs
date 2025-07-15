@@ -2,6 +2,8 @@
 {
     internal class Program
     {
+        //to store EndUser accounts in a list ...
+        public static List<Accounts> UserAccounts = new List<Accounts>();
         //to set Admin account with default values ...
         public static Accounts AdminAccount = new Accounts()
         {
@@ -14,11 +16,11 @@
             IsActive = true,
             Type = "Admin"
         };
-        //to store EndUser accounts in a list ...
-        public static List<Accounts> EndUserAccounts = new List<Accounts>();
         //the main method of the program ...
         static void Main(string[] args)
         {
+            //to add Admin account to UserAccounts list ...
+            UserAccounts.Add(AdminAccount);
             //to call WelcomeMessage method ...
             Additional.WelcomeMessage();
             //to keep the system runs until user choose to closed the system ...
@@ -38,10 +40,11 @@
                         SingUp();
                         break;
 
-                    case '2'://to call LogIn method ...
-                        //LogIn();
-                        Console.WriteLine("Log in method is not implemented yet.");
-                        Additional.HoldScreen();//to hold the screen ...
+                    case '2'://to call LogIn method from Accounts class ...
+                        //to get and validate user input for login ...
+                        string inputNational = Validation.StringValidation("national id");
+                        string inputPassword = Validation.StringValidation("password");
+                        Accounts.LogIn(inputNational, inputPassword);
                         break;
 
                     case '0'://to log out Main ...
@@ -77,7 +80,7 @@
                 P_Password = Password,
             };
             //to add the new account to the list of EndUser accounts ...
-            EndUserAccounts.Add(NewAccount);
+            UserAccounts.Add(NewAccount);
             Console.WriteLine("Your account has been created successfully (^0^)");
             Additional.HoldScreen();//to hold the screen ...
 
