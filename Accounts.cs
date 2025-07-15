@@ -59,11 +59,8 @@ namespace MiniBankSystemOOP
                     }
                     else if (Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "Admin")
                     {
-                        //to display welcome message ...
-                        Console.WriteLine($"Welcome our deer admin {Program.UserAccounts[i].UserName} to Codeline Bank System");
-                        Additional.HoldScreen();//to hold the screen ...
                         //to call AdminMenu method from Accounts class ...
-                        //AdminMenu();
+                        AdminMenu();
                     }
                     else
                     {
@@ -118,6 +115,37 @@ namespace MiniBankSystemOOP
             }
         }
         //3.3. AdminMenu method ...
+        public static void AdminMenu()
+        {
+            //to display Admin menu options ...
+            Console.WriteLine("Admin Menu:");
+            Console.WriteLine("1. View All Accounts");
+            Console.WriteLine("2. Activate/Deactivate Account");
+            Console.WriteLine("3. Log Out");
+            //to get and validate user input for Admin menu ...
+            char adminOption = Validation.CharValidation("option");
+            //to run the option user want ...
+            switch (adminOption)
+            {
+                case '1':
+                    //to call ViewAllAccounts method ...
+                    //ViewAllAccounts();
+                    break;
+                case '2':
+                    //to call ActivateDeactivateAccount method ...
+                    //ActivateDeactivateAccount();
+                    break;
+                case '3':
+                    //to log out Admin ...
+                    Console.WriteLine("You have been logged out successfully.");
+                    Additional.HoldScreen();//to hold the screen ...
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    Additional.HoldScreen();//to hold the screen ...
+                    break;
+            }
+        }
 
         //4. Account class constructors ...
         //4.1. Default constructor ...
