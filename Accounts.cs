@@ -31,6 +31,15 @@ namespace MiniBankSystemOOP
                 NationalID = value;
             }
         }
+        public string P_Password
+        {
+            get { return Password; }
+            set
+            {
+                //to get and validate Password input ...
+                Password = value;
+            }
+        }
 
         //3. Accounts class methods ...
 
