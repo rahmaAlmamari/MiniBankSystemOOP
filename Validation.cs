@@ -49,7 +49,7 @@ namespace MiniBankSystemOOP
                 {
                     Console.WriteLine($"{message} can not contains number and con not be null ..." +
                                       "please prass enter key to try again");
-                    Console.ReadLine();//just to hoad second ...
+                    Additional.HoldScreen();//just to hold a second ...
                     StringNamingFlag = true;
                 }
 
@@ -98,7 +98,7 @@ namespace MiniBankSystemOOP
                 {
                     Console.WriteLine($"{message} not accepted due to " + e.Message);
                     Console.WriteLine("please prass enter key to try again");
-                    Console.ReadLine();
+                    Additional.HoldScreen();//just to hold a second ...
                     DoubleFlag = true;
                 }
 
