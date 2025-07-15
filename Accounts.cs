@@ -57,6 +57,11 @@ namespace MiniBankSystemOOP
                         //to call EndUserMenu method from Accounts class ...
                         EndUserMenu();
                     }
+                    else if (!Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "EndUser")
+                    {
+                        Console.WriteLine("Sorry ... Your account not active yet, please contact the bank.");
+                        Additional.HoldScreen();//to hold the screen ...
+                    }
                     else if (Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "Admin")
                     {
                         //to call AdminMenu method from Accounts class ...
@@ -64,10 +69,9 @@ namespace MiniBankSystemOOP
                     }
                     else
                     {
-                        Console.WriteLine("Your account is inactive, please contact the bank.");
+                        Console.WriteLine("Sorry ... Tis account not exist in the system (TT x TT)");
                         Additional.HoldScreen();//to hold the screen ...
                     }
-                    return;//to exit the method after finding the account ...
                 }
             }
 

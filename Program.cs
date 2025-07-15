@@ -2,6 +2,8 @@
 {
     internal class Program
     {
+        //to save account request to queue ...
+        static Queue<Accounts> createAccountRequests = new Queue<Accounts>();
         //to store EndUser accounts in a list ...
         public static List<Accounts> UserAccounts = new List<Accounts>();
         //to set Admin account with default values ...
@@ -81,7 +83,9 @@
             };
             //to add the new account to the list of EndUser accounts ...
             UserAccounts.Add(NewAccount);
-            Console.WriteLine("Your account has been created successfully (^0^)");
+            //to add the new account to the queue of create account requests ...
+            createAccountRequests.Enqueue(NewAccount);
+            Console.WriteLine("Your request to open account has been created successfully (^0^)");
             Additional.HoldScreen();//to hold the screen ...
 
         }
