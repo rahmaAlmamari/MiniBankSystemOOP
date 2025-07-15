@@ -21,6 +21,7 @@ namespace MiniBankSystemOOP
         //MinimumBalance Constant to set Minimum balance allowed in the account ...
         public const double MinimumBalance = 100.0;
 
+        //==============================================================================================
         //2. Accounts class Properites ...
         public string P_NationalID
         {
@@ -41,42 +42,9 @@ namespace MiniBankSystemOOP
             }
         }
 
-        //3. Accounts class methods ...
-        //3.1. LogIn method ... 
-        public static void LogIn(string inputNational, string inputPassword)
-        {
-            //to loop through UserAccounts list to find the account that match the input ...
-            for (int i = 0; i <= Program.UserAccounts.Count; i++)
-            {
-                if(Program.UserAccounts[i].P_NationalID == inputNational &&
-                   Program.UserAccounts[i].P_Password == inputPassword)
-                {
-                    //to check if the account is active ...
-                    if (Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "EndUser")
-                    {
-                        //to call EndUserMenu method from Accounts class ...
-                        EndUserMenu();
-                    }
-                    else if (!Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "EndUser")
-                    {
-                        Console.WriteLine("Sorry ... Your account not active yet, please contact the bank.");
-                        Additional.HoldScreen();//to hold the screen ...
-                    }
-                    else if (Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "Admin")
-                    {
-                        //to call AdminMenu method from Accounts class ...
-                        AdminMenu();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Sorry ... Tis account not exist in the system (TT x TT)");
-                        Additional.HoldScreen();//to hold the screen ...
-                    }
-                }
-            }
-
-        }
-        //3.2. EndUserMenu method ...
+        //==============================3. Accounts class methods=======================================
+        //------------------------------3.1. EndUser Use Case ------------------------------------------
+        //3.1.1. EndUserMenu method ...
         public static void EndUserMenu()
         {
             //to display EndUser menu options ...
@@ -118,14 +86,28 @@ namespace MiniBankSystemOOP
                     break;
             }
         }
-        //3.3. AdminMenu method ...
+        //-------------------------------------- 3.2. Admin UseCase ------------------------------------
+        //3.2.1. AdminMenu method ...
         public static void AdminMenu()
         {
-            //to display Admin menu options ...
+            Console.Clear();//to clear the screen ...
             Console.WriteLine("Admin Menu:");
-            Console.WriteLine("1. View All Accounts");
-            Console.WriteLine("2. Activate/Deactivate Account");
-            Console.WriteLine("3. Log Out");
+            Console.WriteLine("1. View All Accounts Open Requests");
+            Console.WriteLine("2. Approve reguests accounts opening");
+            Console.WriteLine("3. View opinging accounts in the system");
+            Console.WriteLine("4. View all review in the system");
+            Console.WriteLine("5. Add new admin");
+            Console.WriteLine("6. Delete Account");
+            Console.WriteLine("7. Search for account");
+            Console.WriteLine("8. Show total bank balance");
+            Console.WriteLine("9. Show Top 3 Richest Customers");
+            Console.WriteLine("10. Export All Account Info to a New File");
+            Console.WriteLine("11. Unlock Locked Accounts");
+            Console.WriteLine("12. Print All Transactions");
+            Console.WriteLine("13. View Average Feedback Score");
+            Console.WriteLine("14. Approve reguests for loan");
+            Console.WriteLine("15. Approve reguests for account consultation");
+            Console.WriteLine("0. Exsit");
             //to get and validate user input for Admin menu ...
             char adminOption = Validation.CharValidation("option");
             //to run the option user want ...
@@ -133,7 +115,7 @@ namespace MiniBankSystemOOP
             {
                 case '1':
                     //to call ViewAllAccounts method ...
-                    //ViewAllAccounts();
+                    ViewAllAccountsOpenRequests();
                     break;
                 case '2':
                     //to call ActivateDeactivateAccount method ...
@@ -150,7 +132,63 @@ namespace MiniBankSystemOOP
                     break;
             }
         }
+        //3.2.2. ViewAllAccountsOpenRequests method ...
+        public static void ViewAllAccountsOpenRequests()
+        {
+            //to check if there are request or not ...
+            if (Program.AccountOpenRequests.Count == 0)
+            {
+                Console.WriteLine("There is no request submited yet");
+                Additional.HoldScreen();//to hold the screen ...
+                return;//to stop the method ...
+            }
+            //to display all the request submited ...
+            foreach (Accounts request in  Program.AccountOpenRequests)
+            {
+                Console.WriteLine($"{request}");
+                Console.WriteLine("----------------------");
+            }
 
+            Additional.HoldScreen();//to hold the screen ...
+        }
+        //------------------------------------- 3.3. Additional Methods --------------------------------
+        //3.3.1. LogIn method ... 
+        public static void LogIn(string inputNational, string inputPassword)
+        {
+            //to loop through UserAccounts list to find the account that match the input ...
+            for (int i = 0; i < Program.UserAccounts.Count; i++)
+            {
+                if (Program.UserAccounts[i].P_NationalID == inputNational &&
+                   Program.UserAccounts[i].P_Password == inputPassword)
+                {
+                    //to check if the account is active ...
+                    if (Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "EndUser")
+                    {
+                        //to call EndUserMenu method from Accounts class ...
+                        EndUserMenu();
+                    }
+                    else if (!Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "EndUser")
+                    {
+                        Console.WriteLine("Sorry ... Your account not active yet, please contact the bank.");
+                        Additional.HoldScreen();//to hold the screen ...
+                    }
+                    else if (Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "Admin")
+                    {
+                        //to call AdminMenu method from Accounts class ...
+                        AdminMenu();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Sorry ... Tis account not exist in the system (TT x TT)");
+                        Additional.HoldScreen();//to hold the screen ...
+                    }
+                }
+                //return;
+            }
+
+        }
+
+        //==============================================================================================
         //4. Account class constructors ...
         //4.1. Default constructor ...
         public Accounts() 
