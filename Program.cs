@@ -5,11 +5,12 @@
         //to set Admin account with default values ...
         public static Accounts AdminAccount = new Accounts()
         {
-            UserName = "Admin",
-            P_NationalID = Validation.StringValidation("national id"),
+            UserName = "11admin11",
+            //P_NationalID = Validation.StringValidation("national id"),
+            P_NationalID = "1199", 
             PhoneNumber = "0123456789",
             Address = "Admin Address",
-            //Password = "AdminPassword",
+            P_Password = "1199",
             IsActive = true,
             Type = "Admin"
         };
