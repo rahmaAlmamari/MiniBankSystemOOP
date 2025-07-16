@@ -92,7 +92,7 @@ namespace MiniBankSystemOOP
                         break;
 
                     case "2"://to call WithdrawMoney method ...
-                        //WithdrawMoney();
+                        WithdrawMoney();
                         break;
 
                     case "3"://to call CheckBalance method ...
