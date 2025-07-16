@@ -12,7 +12,7 @@ namespace MiniBankSystemOOP
         private int AccountNumber = 0;
         public string UserName;
         private string NationalID;
-        private double Balance;
+        private double Balance = 100;
         public string PhoneNumber;
         public string Address;
         private string Password;
@@ -40,6 +40,23 @@ namespace MiniBankSystemOOP
                 //to get and validate Password input ...
                 Password = value;
             }
+        }
+        public double P_Balance
+        {
+            get { return Balance; }
+            //set
+            //{
+            //    //to get and validate Balance input ...
+            //    if (value >= MinimumBalance)
+            //    {
+            //        Balance = value;
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"Balance can not be less than {MinimumBalance}.");
+            //        Additional.HoldScreen();//to hold the screen ...
+            //    }
+            //}
         }
 
         //==============================3. Accounts class methods=======================================
@@ -145,7 +162,14 @@ namespace MiniBankSystemOOP
             //to display all the request submited ...
             foreach (Accounts request in  Program.AccountOpenRequests)
             {
-                Console.WriteLine($"{request}");
+                Console.WriteLine($"User Name: {request.UserName}\n"+
+                                  $"National ID: {request.P_NationalID}\n"+
+                                  $"Phone Number: {request.PhoneNumber}\n"+
+                                  $"Address: {request.Address}\n" +
+                                  $"Balance: {request.P_Balance}" +
+                                  $"Password: {request.P_Password}\n"+
+                                  $"Is Active: {request.IsActive}\n"+
+                                  $"Type: {request.Type}");
                 Console.WriteLine("----------------------");
             }
 
