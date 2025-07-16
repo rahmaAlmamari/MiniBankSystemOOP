@@ -20,6 +20,10 @@ namespace MiniBankSystemOOP
         public string Type = "EndUser";// Type can be "EndUser" or "Admin" ...
         //MinimumBalance Constant to set Minimum balance allowed in the account ...
         public const double MinimumBalance = 100.0;
+        //USD value (1 USD = 3.8 OMR)
+        public const double USD = 3.8;
+        //EUR value (1EUR = 0.45 OMR)
+        public const double EUR = 0.45;
 
         //==============================================================================================
         //2. Accounts class Properites ...
