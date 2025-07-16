@@ -84,7 +84,7 @@ namespace MiniBankSystemOOP
                 switch (EndUserMenuOption)
                 {
                     case "1"://to call DepositeMoney method ...
-                        //DepositeMoney();
+                        DepositeMoney();
                         break;
 
                     case "2"://to call WithdrawMoney method ...
@@ -92,7 +92,7 @@ namespace MiniBankSystemOOP
                         break;
 
                     case "3"://to call CheckBalance method ...
-                        //CheckBalance();
+                        CheckBalance();
                         break;
 
                     case "4"://to call SubmitReview method ...
@@ -208,12 +208,40 @@ namespace MiniBankSystemOOP
             Program.UserAccounts[index].P_Balance = Deposite;
             Console.WriteLine($"Your deposite process done successfully.\n" +
                               $"Your new balance is: {Deposite}");
-            //to store the transaction details in the lists ...
-            //StoreTransactions(AccountNumber.ToString(), type, (DepositeMoney * CurrencyValue).ToString(),
-                                  Deposite.ToString());
-            //to get user rate on service ...
-            //RateService("deposite");
+            Additional.HoldScreen();//to hold the screen ...
+                                    //to store the transaction details in the lists ...
+                                    //StoreTransactions(AccountNumber.ToString(), type, (DepositeMoney * CurrencyValue).ToString(),
+                                    // Deposite.ToString());
+                                    //to get user rate on service ...
+                                    //RateService("deposite");
         }
+        //3.1.4. Check balance ...
+        public static void CheckBalance()
+        {
+            //to enter the account number from the user ...
+            int AccountNumber;
+            AccountNumber = Validation.IntValidation("account number");
+            //to check if the account exist ...
+            bool IsExist = CheckAccountNumberExist(AccountNumber);
+            if (!IsExist)
+            {
+                Console.WriteLine("Sorry the account number you entered is not exist!");
+                Additional.HoldScreen();//just to hold a second ...
+                return; //to stop the method ...
+            }
+            else
+            {
+                for (int i = 0; i < Program.UserAccounts.Count; i++)
+                {
+                    if (AccountNumber == Program.UserAccounts[i].AccountNumber)
+                    {
+                        Console.WriteLine($"Your account balance is: {Program.UserAccounts[i].P_Balance}");
+                        Additional.HoldScreen();
+                        return;//to stop the method ...
+                    }
+                }
+            }
+        }//to know how much in your account ...
         //-------------------------------------- 3.2. Admin UseCase ------------------------------------
         //3.2.1. AdminMenu method ...
         public static void AdminMenu()
