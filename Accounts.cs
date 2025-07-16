@@ -190,6 +190,56 @@ namespace MiniBankSystemOOP
                 }
             }
         }
+        //3.1.3. Withdraw money ...
+        public static void WithdrawMoney()
+        {
+            //to enter the account number from the user ...
+            int AccountNumber;
+            AccountNumber = Validation.IntValidation("account number");
+            //to check if the account exist ...
+            bool IsExist = CheckAccountNumberExist(AccountNumber);
+            if (!IsExist)
+            {
+                Console.WriteLine("Sorry the account number you entered is not exist!");
+                Additional.HoldScreen();//just to hold a second ...
+                return; //to stop the method ...
+            }
+            else
+            {
+                //to do the process of withdraw money ...
+                double WithdrawMoney = Validation.DoubleValidation("money amount to deposite");
+                //get account money amount using check balance ... do it after login ...
+                //to get money amount in the account ... it will be in the balance leater ...
+                double AccountMoney = 0;
+                int index = 0;
+                for (int i = 0; i < Program.UserAccounts.Count; i++)
+                {
+                    if (Program.UserAccounts[i].AccountNumber == AccountNumber)
+                    {
+                        AccountMoney = Program.UserAccounts[i].P_Balance;
+                        index = i;
+                        break;//to stop the loop and save the time ...
+                    }
+                }
+                double Withdraw = AccountMoney - WithdrawMoney;
+                bool IsValid = CheckBalanceEqualsMinimumBalance(Withdraw);
+                if (!IsValid)
+                {
+                    Console.WriteLine("Sorry your withdraw process is not complete");
+                    Additional.HoldScreen();//just to hold the screen ...
+                }
+                else
+                {
+                    Program.UserAccounts[index].P_Balance = Withdraw;
+                    Console.WriteLine($"Your withdraw process done successfully.\n" +
+                                      $"Your new balance is: {Withdraw}");
+                    //to store the transaction details in the lists ...
+                    StoreTransactions("Withdraw", WithdrawMoney,Withdraw);
+                    //to get user rate on service ...
+                    RateService("withdraw");
+                }
+            }
+        }//to take money from your account ... 
         //3.1.4. Check balance ...
         public static void CheckBalance()
         {
@@ -439,6 +489,23 @@ namespace MiniBankSystemOOP
             Rating.Add(rating);
             Console.WriteLine($"Thank you for rating our {ServiceName} service with {rating} stars.");
             Additional.HoldScreen();//just to hold second ...
+        }
+        //3.3.6. Check if balance < MinimumBalance ...
+        public static bool CheckBalanceEqualsMinimumBalance(double value)
+        {
+            bool IsValide;
+            if (value < MinimumBalance)
+            {
+                IsValide = false;
+                Console.WriteLine($"Your {value} amount is lass then minimum balance: {MinimumBalance}");
+                Additional.HoldScreen();//to hold the screen ...
+
+            }
+            else
+            {
+                IsValide = true;
+            }
+            return IsValide;
         }
 
         //==============================================================================================
