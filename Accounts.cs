@@ -48,19 +48,7 @@ namespace MiniBankSystemOOP
         public double P_Balance
         {
             get { return Balance; }
-            //set
-            //{
-            //    //to get and validate Balance input ...
-            //    if (value >= MinimumBalance)
-            //    {
-            //        Balance = value;
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine($"Balance can not be less than {MinimumBalance}.");
-            //        Additional.HoldScreen();//to hold the screen ...
-            //    }
-            //}
+            set { Balance = value; }
         }
 
         //==============================3. Accounts class methods=======================================
@@ -197,6 +185,34 @@ namespace MiniBankSystemOOP
                         break;
                 }
             }
+        }
+        //3.1.3. ToGetDepositeMoney method ...
+        public static void ToGetDepositeMoney(double CurrencyValue, int AccountNumber, string type)
+        {
+            //to do the process of deposite money ...
+            double DepositeMoney = Validation.DoubleValidation("money amount to deposite");
+            //get account money amount using check balance ... do it after login ...
+            //to get money amount in the account ... it will be in the balance leater ...
+            double AccountMoney = 0;
+            int index = 0;
+            for (int i = 0; i < Program.UserAccounts.Count; i++)
+            {
+                if (Program.UserAccounts[i].AccountNumber == AccountNumber)
+                {
+                    AccountMoney = Program.UserAccounts[i].P_Balance;
+                    index = i;
+                    break;//to stop the loop and save the time ...
+                }
+            }
+            double Deposite = AccountMoney + (DepositeMoney * CurrencyValue);
+            Program.UserAccounts[index].P_Balance = Deposite;
+            Console.WriteLine($"Your deposite process done successfully.\n" +
+                              $"Your new balance is: {Deposite}");
+            //to store the transaction details in the lists ...
+            //StoreTransactions(AccountNumber.ToString(), type, (DepositeMoney * CurrencyValue).ToString(),
+                                  Deposite.ToString());
+            //to get user rate on service ...
+            //RateService("deposite");
         }
         //-------------------------------------- 3.2. Admin UseCase ------------------------------------
         //3.2.1. AdminMenu method ...
