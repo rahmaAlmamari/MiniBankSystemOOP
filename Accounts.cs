@@ -107,46 +107,51 @@ namespace MiniBankSystemOOP
         //3.2.1. AdminMenu method ...
         public static void AdminMenu()
         {
-            Console.Clear();//to clear the screen ...
-            Console.WriteLine("Admin Menu:");
-            Console.WriteLine("1. View All Accounts Open Requests");
-            Console.WriteLine("2. Approve requests accounts opening");
-            Console.WriteLine("3. View opinging accounts in the system");
-            Console.WriteLine("4. View all review in the system");
-            Console.WriteLine("5. Add new admin");
-            Console.WriteLine("6. Delete Account");
-            Console.WriteLine("7. Search for account");
-            Console.WriteLine("8. Show total bank balance");
-            Console.WriteLine("9. Show Top 3 Richest Customers");
-            Console.WriteLine("10. Export All Account Info to a New File");
-            Console.WriteLine("11. Unlock Locked Accounts");
-            Console.WriteLine("12. Print All Transactions");
-            Console.WriteLine("13. View Average Feedback Score");
-            Console.WriteLine("14. Approve reguests for loan");
-            Console.WriteLine("15. Approve reguests for account consultation");
-            Console.WriteLine("0. Exsit");
-            //to get and validate user input for Admin menu ...
-            char adminOption = Validation.CharValidation("option");
-            //to run the option user want ...
-            switch (adminOption)
+            //to keep the AdmainMenu method runs until user choose to closed it ...
+            bool AdmainMenuRun = true;//to stop the AdmainMenu method ...
+            while (AdmainMenuRun)
             {
-                case '1':
-                    //to call ViewAllAccounts method ...
-                    ViewAllAccountsOpenRequests();
-                    break;
-                case '2':
-                    //to call ActivateDeactivateAccount method ...
-                    //ActivateDeactivateAccount();
-                    break;
-                case '3':
-                    //to log out Admin ...
-                    Console.WriteLine("You have been logged out successfully.");
-                    Additional.HoldScreen();//to hold the screen ...
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice.");
-                    Additional.HoldScreen();//to hold the screen ...
-                    break;
+                Console.Clear();//to clear the screen ...
+                Console.WriteLine("Admin Menu:");
+                Console.WriteLine("1. View All Accounts Open Requests");
+                Console.WriteLine("2. Approve requests accounts opening");
+                Console.WriteLine("3. View opinging accounts in the system");
+                Console.WriteLine("4. View all review in the system");
+                Console.WriteLine("5. Add new admin");
+                Console.WriteLine("6. Delete Account");
+                Console.WriteLine("7. Search for account");
+                Console.WriteLine("8. Show total bank balance");
+                Console.WriteLine("9. Show Top 3 Richest Customers");
+                Console.WriteLine("10. Export All Account Info to a New File");
+                Console.WriteLine("11. Unlock Locked Accounts");
+                Console.WriteLine("12. Print All Transactions");
+                Console.WriteLine("13. View Average Feedback Score");
+                Console.WriteLine("14. Approve reguests for loan");
+                Console.WriteLine("15. Approve reguests for account consultation");
+                Console.WriteLine("0. Exsit");
+                //to get and validate user input for Admin menu ...
+                char adminOption = Validation.CharValidation("option");
+                //to run the option user want ...
+                switch (adminOption)
+                {
+                    case '1':
+                        //to call ViewAllAccounts method ...
+                        ViewAllAccountsOpenRequests();
+                        break;
+                    case '2':
+                        //to call ActivateDeactivateAccount method ...
+                        //ActivateDeactivateAccount();
+                        break;
+                    case '3':
+                        //to log out Admin ...
+                        Console.WriteLine("You have been logged out successfully.");
+                        Additional.HoldScreen();//to hold the screen ...
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        Additional.HoldScreen();//to hold the screen ...
+                        break;
+                }
             }
         }
         //3.2.2. ViewAllAccountsOpenRequests method ...
