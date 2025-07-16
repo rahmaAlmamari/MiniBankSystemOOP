@@ -24,6 +24,8 @@ namespace MiniBankSystemOOP
         public const double USD = 3.8;
         //EUR value (1EUR = 0.45 OMR)
         public const double EUR = 0.45;
+        //Rate Service list ...
+        public static List<int> Rating = new List<int>();//to store user rate on the service used ...
 
         //==============================================================================================
         //2. Accounts class Properites ...
@@ -209,11 +211,11 @@ namespace MiniBankSystemOOP
             Console.WriteLine($"Your deposite process done successfully.\n" +
                               $"Your new balance is: {Deposite}");
             Additional.HoldScreen();//to hold the screen ...
-                                    //to store the transaction details in the lists ...
-                                    //StoreTransactions(AccountNumber.ToString(), type, (DepositeMoney * CurrencyValue).ToString(),
-                                    // Deposite.ToString());
-                                    //to get user rate on service ...
-                                    //RateService("deposite");
+            //to store the transaction details in the lists ...
+            //StoreTransactions(AccountNumber.ToString(), type, (DepositeMoney * CurrencyValue).ToString(),
+            // Deposite.ToString());
+            //to get user rate on service ...
+            //RateService("deposite");
         }
         //3.1.4. Check balance ...
         public static void CheckBalance()
@@ -409,6 +411,16 @@ namespace MiniBankSystemOOP
                 }
             }
             return result;
+        }
+        //3.3.2. To rate the Service method
+        public static void RateService(string ServiceName)
+        {
+            Console.WriteLine($"Please rate our {ServiceName} service from 1 to 5:");
+            //to get the rate from the user ...
+            int rating = Validation.IntValidation("rating (1 to 5)");
+            //to store the rating in the Ratings list ...
+            Rating.Add(rating);
+            Additional.HoldScreen();//just to hold second ...
         }
 
         //==============================================================================================
