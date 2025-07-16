@@ -110,7 +110,7 @@ namespace MiniBankSystemOOP
             Console.Clear();//to clear the screen ...
             Console.WriteLine("Admin Menu:");
             Console.WriteLine("1. View All Accounts Open Requests");
-            Console.WriteLine("2. Approve reguests accounts opening");
+            Console.WriteLine("2. Approve requests accounts opening");
             Console.WriteLine("3. View opinging accounts in the system");
             Console.WriteLine("4. View all review in the system");
             Console.WriteLine("5. Add new admin");
@@ -174,6 +174,45 @@ namespace MiniBankSystemOOP
             }
 
             Additional.HoldScreen();//to hold the screen ...
+        }
+        //3.2.3. ApproveRequestsAccountsOpening method ...
+        public static void ApproveRequestsAccountsOpening()
+        {
+            //to check if there are request or not ...
+            if (Program.AccountOpenRequests.Count == 0)
+            {
+                Console.WriteLine("There is no request submited yet");
+                Additional.HoldScreen();//to hold the screen ...
+                return;//to stop the method ...
+            }
+            //to get first request submited to AccountOpenRequests queue ...
+            Accounts request = Program.AccountOpenRequests.Dequeue();
+            Console.WriteLine($"User Name: {request.UserName}\n" +
+                              $"National ID: {request.P_NationalID}\n" +
+                              $"Phone Number: {request.PhoneNumber}\n" +
+                              $"Address: {request.Address}\n" +
+                              $"Balance: {request.P_Balance}" +
+                              $"Password: {request.P_Password}\n" +
+                              $"Is Active: {request.IsActive}\n" +
+                              $"Type: {request.Type}");
+
+            bool action = Additional.ConfirmAction("approved this request");
+            if (action)
+            {
+                //to get account index in UserAccounts list ...
+                int index = Program.UserAccounts.FindIndex(x => x.P_NationalID == request.P_NationalID);
+                //to set the request account as active in UserAccounts list...
+                Program.UserAccounts[index].IsActive = true;
+                //to remove the request account from AccountOpenRequests queue ...
+                Program.AccountOpenRequests.Dequeue();
+                Console.WriteLine("Request approved successfully.");
+                Additional.HoldScreen();//to hold the screen ...
+            }
+            else
+            {
+                Console.WriteLine("Request not approved.");
+                Additional.HoldScreen();//to hold the screen ...
+            }
         }
         //------------------------------------- 3.3. Additional Methods --------------------------------
         //3.3.1. LogIn method ... 
