@@ -426,6 +426,8 @@ namespace MiniBankSystemOOP
             };
             //to add the transaction to the AccountTransactions list ...
             AccountTransactions.Add(transaction);
+            Console.WriteLine("Transction add successfully");
+            Additional.HoldScreen();//to hold the screen ...
         }
         //3.3.5. To rate the Service method
         public static void RateService(string ServiceName)
@@ -435,6 +437,7 @@ namespace MiniBankSystemOOP
             int rating = Validation.IntValidation("rating (1 to 5)");
             //to store the rating in the Ratings list ...
             Rating.Add(rating);
+            Console.WriteLine($"Thank you for rating our {ServiceName} service with {rating} stars.");
             Additional.HoldScreen();//just to hold second ...
         }
 
