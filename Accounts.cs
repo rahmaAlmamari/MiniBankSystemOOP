@@ -62,45 +62,136 @@ namespace MiniBankSystemOOP
         //==============================3. Accounts class methods=======================================
         //------------------------------3.1. EndUser Use Case ------------------------------------------
         //3.1.1. EndUserMenu method ...
-        public static void EndUserMenu()
+        public static void EndUserMenu(string nationalId)
         {
-            //to display EndUser menu options ...
-            Console.WriteLine("End User Menu:");
-            Console.WriteLine("1. View Account Details");
-            Console.WriteLine("2. Deposit Money");
-            Console.WriteLine("3. Withdraw Money");
-            Console.WriteLine("4. Transfer Money");
-            Console.WriteLine("5. Log Out");
-            //to get and validate user input for EndUser menu ...
-            char endUserOption = Validation.CharValidation("option");
-            //to run the option user want ...
-            switch (endUserOption)
+            //to get user ifnormation from UserAccounts list based on the nationalId ...
+            Accounts userAccount = Program.UserAccounts.Find(x => x.P_NationalID == nationalId);
+            //to keep the EndUserMenu method runs until user choose to closed it ...
+            bool EndUserMenuRun = true;//to stop the EndUserMenu method ...
+            while (EndUserMenuRun)
             {
-                case '1':
-                    //to call ViewAccountDetails method ...
-                    //ViewAccountDetails();
-                    break;
-                case '2':
-                    //to call DepositMoney method ...
-                    //DepositMoney();
-                    break;
-                case '3':
-                    //to call WithdrawMoney method ...
-                    //WithdrawMoney();
-                    break;
-                case '4':
-                    //to call TransferMoney method ...
-                    //TransferMoney();
-                    break;
-                case '5':
-                    //to log out EndUser ...
-                    Console.WriteLine("You have been logged out successfully.");
-                    Additional.HoldScreen();//to hold the screen ...
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice.");
-                    Additional.HoldScreen();//to hold the screen ...
-                    break;
+                Console.Clear();//to clear the screen ...
+                Console.WriteLine($"Welcome {userAccount.UserName} your account number is {userAccount.AccountNumber}\n"+
+                                  $"Please feel free to use our services:");
+                Console.WriteLine("1. Deposite money");//to put money to your account ...
+                Console.WriteLine("2. Withdraw money");//to take money from your account ...
+                Console.WriteLine("3. Check balance");//to know how much in your account ...
+                Console.WriteLine("4. Submit review");//to submit message with what you like and what not to the admin ...
+                Console.WriteLine("5. Transfer money between accounts");
+                Console.WriteLine("6. Undo last complaint submitted");
+                Console.WriteLine("7. Update Account Information");
+                Console.WriteLine("8. Print All Account Transactions");
+                Console.WriteLine("9. Show Last N Transactions");
+                Console.WriteLine("10. Show Transactions After Date X");
+                Console.WriteLine("11. Monthly Statement Generator");
+                Console.WriteLine("12. Booking Bank Services");
+                Console.WriteLine("0. Exsit");
+                //to call CharValidation to get and validate user input ...
+                string EndUserMenuOption = Validation.StringValidation("option");
+                //to run the option user want ...
+                switch (EndUserMenuOption)
+                {
+                    case "1"://to call DepositeMoney method ...
+                        //DepositeMoney();
+                        break;
+
+                    case "2"://to call WithdrawMoney method ...
+                        //WithdrawMoney();
+                        break;
+
+                    case "3"://to call CheckBalance method ...
+                        //CheckBalance();
+                        break;
+
+                    case "4"://to call SubmitReview method ...
+                        //SubmitReview(nationalId);
+                        break;
+
+                    case "5"://to call TransferBetweenAccounts method ...
+                        //TransferBetweenAccounts();
+                        break;
+
+                    case "6"://to call UndoLastComplaintSubmitted method ...
+                        //UndoLastComplaintSubmitted(nationalId);
+                        break;
+
+                    case "7"://to call UpdateAccountInfo method ...
+                        //UpdateAccountInfo(nationalId);
+                        break;
+
+                    case "8": //to call PrintAllAccountTransactions method ...
+                        //PrintAllAccountTransactions();
+                        break;
+
+                    case "9": //to call ShowLastNTransactions method ..
+                        //ShowLastNTransactions();
+                        break;
+
+                    case "10": //to call ShowTransactionsAfterDateX method ..
+                        //ShowTransactionsAfterDateX();
+                        break;
+
+                    case "11": //to call MonthlyStatementGenerator method ..
+                        //MonthlyStatementGenerator();
+                        break;
+
+                    case "12"://to call BookingBankServices method ...
+                        //BookingBankServices(nationalId);
+                        break;
+
+                    case "0"://to exsit EndUserMenu ...
+                        EndUserMenuRun = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        Additional.HoldScreen();//to hold the screen ...
+                        break;
+                }
+
+            }
+        }
+        //3.1.2. DepositeMoney method ...
+        public static void DepositeMoney()//to put money to your account ...
+        {
+            //to enter the account number from the user ...
+            int AccountNumber;
+            AccountNumber = Validation.IntValidation("account number");
+            //to check if the account exist ...
+            bool IsExist = CheckAccountNumberExist(AccountNumber);
+            if (!IsExist)
+            {
+                Console.WriteLine("Sorry the account number you entered is not exist!");
+                Additional.HoldScreen();//just to hold a second ...
+                return; //to stop the method ...
+            }
+            else
+            {
+                //to get currencies (OMR,USD, EUR) from the user ...
+                char currency;
+                Console.WriteLine("Available currencies:");
+                Console.WriteLine("1. OMR");
+                Console.WriteLine("2. USD");
+                Console.WriteLine("3. EUR");
+                //to call CharValidation to get and validate user input ...
+                currency = Validation.CharValidation("currency (1,2,3)");
+                //to deposite money in the account based on the currency selected by the user ...
+                switch (currency)
+                {
+                    case '1': //to deposite OMR ...
+                        ToGetDepositeMoney(1, AccountNumber, "Deposite (OMR)");
+                        break;
+                    case '2': //to deposite USD ...
+                        ToGetDepositeMoney(USD, AccountNumber, "Deposite (USD)");
+                        break;
+                    case '3': //to deposite EUR ...
+                        ToGetDepositeMoney(EUR, AccountNumber, "Deposite (EUR)");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid currency choice.");
+                        Additional.HoldScreen();//to hold the screen ...
+                        break;
+                }
             }
         }
         //-------------------------------------- 3.2. Admin UseCase ------------------------------------
@@ -130,22 +221,25 @@ namespace MiniBankSystemOOP
                 Console.WriteLine("15. Approve reguests for account consultation");
                 Console.WriteLine("0. Exsit");
                 //to get and validate user input for Admin menu ...
-                char adminOption = Validation.CharValidation("option");
+                string adminOption = Validation.StringValidation("option");
                 //to run the option user want ...
                 switch (adminOption)
                 {
-                    case '1':
+                    case "1":
                         //to call ViewAllAccounts method ...
                         ViewAllAccountsOpenRequests();
                         break;
-                    case '2':
-                        //to call ActivateDeactivateAccount method ...
-                        //ActivateDeactivateAccount();
+                    case "2":
+                        //to call ApproveRequestsAccountsOpening method ...
+                        ApproveRequestsAccountsOpening();
                         break;
-                    case '3':
+                    case "3":
                         //to log out Admin ...
                         Console.WriteLine("You have been logged out successfully.");
                         Additional.HoldScreen();//to hold the screen ...
+                        break;
+                    case "0"://to exsit AdmainMenuRun ...
+                        AdmainMenuRun = false;
                         break;
                     default:
                         Console.WriteLine("Invalid choice.");
@@ -208,8 +302,6 @@ namespace MiniBankSystemOOP
                 int index = Program.UserAccounts.FindIndex(x => x.P_NationalID == request.P_NationalID);
                 //to set the request account as active in UserAccounts list...
                 Program.UserAccounts[index].IsActive = true;
-                //to remove the request account from AccountOpenRequests queue ...
-                Program.AccountOpenRequests.Dequeue();
                 Console.WriteLine("Request approved successfully.");
                 Additional.HoldScreen();//to hold the screen ...
             }
@@ -233,7 +325,7 @@ namespace MiniBankSystemOOP
                     if (Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "EndUser")
                     {
                         //to call EndUserMenu method from Accounts class ...
-                        EndUserMenu();
+                        EndUserMenu(inputNational);
                     }
                     else if (!Program.UserAccounts[i].IsActive && Program.UserAccounts[i].Type == "EndUser")
                     {
@@ -254,6 +346,21 @@ namespace MiniBankSystemOOP
                 //return;
             }
 
+        }
+        //3.3.2. CheckAccountNumberExist method to check if the account number exist or not...
+        public static bool CheckAccountNumberExist(int accountNum)
+        {
+            //20 8 9 19 3 15 4 5 13 1 4 5 2 25 18 1 8 13 1 1 12 13 1 13 1 18 9
+            bool result = false;
+            for (int i = 0; i < Program.UserAccounts.Count; i++)
+            {
+                if (Program.UserAccounts[i].AccountNumber == accountNum)
+                {
+                    result = true;
+                    break;//to step the loop and save the time ...
+                }
+            }
+            return result;
         }
 
         //==============================================================================================
