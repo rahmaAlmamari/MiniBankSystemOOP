@@ -26,6 +26,8 @@ namespace MiniBankSystemOOP
         public const double EUR = 0.45;
         //Rate Service list ...
         public static List<int> Rating = new List<int>();//to store user rate on the service used ...
+        //Transactions list to store all transactions done by the user ...
+        public static List<Transactions> AccountTransactions = new List<Transactions>();
 
         //==============================================================================================
         //2. Accounts class Properites ...
@@ -187,35 +189,6 @@ namespace MiniBankSystemOOP
                         break;
                 }
             }
-        }
-        //3.1.3. ToGetDepositeMoney method ...
-        public static void ToGetDepositeMoney(double CurrencyValue, int AccountNumber, string type)
-        {
-            //to do the process of deposite money ...
-            double DepositeMoney = Validation.DoubleValidation("money amount to deposite");
-            //get account money amount using check balance ... do it after login ...
-            //to get money amount in the account ... it will be in the balance leater ...
-            double AccountMoney = 0;
-            int index = 0;
-            for (int i = 0; i < Program.UserAccounts.Count; i++)
-            {
-                if (Program.UserAccounts[i].AccountNumber == AccountNumber)
-                {
-                    AccountMoney = Program.UserAccounts[i].P_Balance;
-                    index = i;
-                    break;//to stop the loop and save the time ...
-                }
-            }
-            double Deposite = AccountMoney + (DepositeMoney * CurrencyValue);
-            Program.UserAccounts[index].P_Balance = Deposite;
-            Console.WriteLine($"Your deposite process done successfully.\n" +
-                              $"Your new balance is: {Deposite}");
-            Additional.HoldScreen();//to hold the screen ...
-            //to store the transaction details in the lists ...
-            //StoreTransactions(AccountNumber.ToString(), type, (DepositeMoney * CurrencyValue).ToString(),
-            // Deposite.ToString());
-            //to get user rate on service ...
-            //RateService("deposite");
         }
         //3.1.4. Check balance ...
         public static void CheckBalance()
@@ -412,7 +385,49 @@ namespace MiniBankSystemOOP
             }
             return result;
         }
-        //3.3.2. To rate the Service method
+        //3.1.3. ToGetDepositeMoney method ...
+        public static void ToGetDepositeMoney(double CurrencyValue, int AccountNumber, string type)
+        {
+            //to do the process of deposite money ...
+            double DepositeMoney = Validation.DoubleValidation("money amount to deposite");
+            //get account money amount using check balance ... do it after login ...
+            //to get money amount in the account ... it will be in the balance leater ...
+            double AccountMoney = 0;
+            int index = 0;
+            for (int i = 0; i < Program.UserAccounts.Count; i++)
+            {
+                if (Program.UserAccounts[i].AccountNumber == AccountNumber)
+                {
+                    AccountMoney = Program.UserAccounts[i].P_Balance;
+                    index = i;
+                    break;//to stop the loop and save the time ...
+                }
+            }
+            double Deposite = AccountMoney + (DepositeMoney * CurrencyValue);
+            Program.UserAccounts[index].P_Balance = Deposite;
+            Console.WriteLine($"Your deposite process done successfully.\n" +
+                              $"Your new balance is: {Deposite}");
+            Additional.HoldScreen();//to hold the screen ...
+            //to store the transaction details in the lists ...
+            StoreTransactions(type, (DepositeMoney * CurrencyValue), Deposite);
+            //to get user rate on service ...
+            RateService("deposite");
+        }
+        //3.1.5. StoreTransactions method to store the transaction details in the lists ...
+        public static void StoreTransactions(string type, double amount, double balance)
+        {
+            //to create a new transaction object ...
+            Transactions transaction = new Transactions()
+            {
+                TransactionType = type,
+                TransactionAmount = amount,
+                TransactionBalance = balance,
+                TransactionDate = DateTime.Now
+            };
+            //to add the transaction to the AccountTransactions list ...
+            AccountTransactions.Add(transaction);
+        }
+        //3.3.5. To rate the Service method
         public static void RateService(string ServiceName)
         {
             Console.WriteLine($"Please rate our {ServiceName} service from 1 to 5:");
